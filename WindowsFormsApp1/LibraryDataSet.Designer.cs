@@ -1627,6 +1627,10 @@ namespace WindowsFormsApp1 {
             
             private global::System.Data.DataColumn columnLastName;
             
+            private global::System.Data.DataColumn columnPAGES;
+            
+            private global::System.Data.DataColumn columnPRICE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ViewByPictureIdDataTable() {
@@ -1686,6 +1690,22 @@ namespace WindowsFormsApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PAGESColumn {
+                get {
+                    return this.columnPAGES;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PRICEColumn {
+                get {
+                    return this.columnPRICE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1721,12 +1741,14 @@ namespace WindowsFormsApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ViewByPictureIdRow AddViewByPictureIdRow(string Title, string FirstName, string LastName) {
+            public ViewByPictureIdRow AddViewByPictureIdRow(string Title, string FirstName, string LastName, int PAGES, int PRICE) {
                 ViewByPictureIdRow rowViewByPictureIdRow = ((ViewByPictureIdRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Title,
                         FirstName,
-                        LastName};
+                        LastName,
+                        PAGES,
+                        PRICE};
                 rowViewByPictureIdRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowViewByPictureIdRow);
                 return rowViewByPictureIdRow;
@@ -1752,6 +1774,8 @@ namespace WindowsFormsApp1 {
                 this.columnTitle = base.Columns["Title"];
                 this.columnFirstName = base.Columns["FirstName"];
                 this.columnLastName = base.Columns["LastName"];
+                this.columnPAGES = base.Columns["PAGES"];
+                this.columnPRICE = base.Columns["PRICE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1763,6 +1787,10 @@ namespace WindowsFormsApp1 {
                 base.Columns.Add(this.columnFirstName);
                 this.columnLastName = new global::System.Data.DataColumn("LastName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLastName);
+                this.columnPAGES = new global::System.Data.DataColumn("PAGES", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPAGES);
+                this.columnPRICE = new global::System.Data.DataColumn("PRICE", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPRICE);
                 this.columnTitle.AllowDBNull = false;
                 this.columnTitle.MaxLength = 100;
                 this.columnFirstName.AllowDBNull = false;
@@ -2238,6 +2266,62 @@ namespace WindowsFormsApp1 {
                 set {
                     this[this.tableViewByPictureId.LastNameColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int PAGES {
+                get {
+                    try {
+                        return ((int)(this[this.tableViewByPictureId.PAGESColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PAGES\' in table \'ViewByPictureId\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableViewByPictureId.PAGESColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int PRICE {
+                get {
+                    try {
+                        return ((int)(this[this.tableViewByPictureId.PRICEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PRICE\' in table \'ViewByPictureId\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableViewByPictureId.PRICEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPAGESNull() {
+                return this.IsNull(this.tableViewByPictureId.PAGESColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPAGESNull() {
+                this[this.tableViewByPictureId.PAGESColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPRICENull() {
+                return this.IsNull(this.tableViewByPictureId.PRICEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPRICENull() {
+                this[this.tableViewByPictureId.PRICEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3808,6 +3892,8 @@ SELECT Id, AuthorId, Title, PRICE, PAGES FROM Books WHERE (Id = @Id)";
             tableMapping.ColumnMappings.Add("Title", "Title");
             tableMapping.ColumnMappings.Add("FirstName", "FirstName");
             tableMapping.ColumnMappings.Add("LastName", "LastName");
+            tableMapping.ColumnMappings.Add("PAGES", "PAGES");
+            tableMapping.ColumnMappings.Add("PRICE", "PRICE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
