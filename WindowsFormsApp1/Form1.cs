@@ -14,7 +14,6 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private SqlConnection conn = null;
         private string fileName = "";
         public Form1()
         {
@@ -25,47 +24,23 @@ namespace WindowsFormsApp1
         {
             // TODO: This line of code loads data into the 'libraryDataSet.Pictures' table. You can move, or remove it, as needed.
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
-            conn = new SqlConnection();
-            conn.ConnectionString = @"Server=(local); Database=Library; Integrated Security=SSPI;";
-        }
-
-        private void loadPictureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.FileName = "";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            for (int i = 0; i < booksTableAdapter1.GetData().Count; i++)
             {
-                fileName = ofd.FileName;
-                LoadPicture();
+                comboBox1.Items.Add(booksTableAdapter1.GetData().Rows[i]["Title"]);
             }
         }
 
-        private void LoadPicture()
+        private void LoadPicture(int BookID)
         {
             try
             {
                 byte[] bytes;
                 bytes = ImageToByteArray(Image.FromFile(fileName));
-                conn.Open();
-                SqlCommand comm = new SqlCommand("insert into Pictures(bookid,name, picture) values(@bookid, @name, @picture); ",conn);
-                comm.Parameters.Add("@bookid",
-                SqlDbType.Int).Value = 1;
-                comm.Parameters.Add("@name",
-                SqlDbType.NVarChar, 255).
-                Value = fileName;
-                comm.Parameters.Add("@picture",
-                SqlDbType.Image, bytes.Length).
-                Value = bytes;
-                comm.ExecuteNonQuery();
-                conn.Close();
+                picturesTableAdapter.Insert(BookID, fileName, bytes);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (conn != null) conn.Close();
             }
         }
 
@@ -87,26 +62,43 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void showAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
+            int index = dataGridView1.CurrentCell.RowIndex;
+            if (index < picturesTableAdapter.GetData().Rows.Count && index >= 0)
             {
-                dataGridView1.Update();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                pictureBox1.Image = ByeteToImage((byte[])picturesTableAdapter.GetData().Rows[index]["picture"]);
+                int pictureId = (int)picturesTableAdapter.GetData().Rows[index]["ID"];
+                BookTilte_Label.Text = viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["Title"].ToString();
+                AuthorName_Label.Text = $"{viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["FirstName"]} {viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["LastName"]}";
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            int index = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value) - 1;
-            if (index < libraryDataSet.Tables[0].Columns.Count && index >= 0)
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.FileName = "";
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //pictureBox1.Image = ByeteToImage((byte[])libraryDataSet.Tables[0].Rows[index]["picture"]);
-                pictureBox1.Image = ByeteToImage((byte[])picturesTableAdapter.GetData().Rows[index]["picture"]);
+                fileName = ofd.FileName;
+                pictureBox2.Image = Image.FromFile(fileName);
+                button2.Enabled = true;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int BookId = (int)findBookIdByTitleTableAdapter1.GetData((string)comboBox1.SelectedItem).Rows[0]["ID"];
+            LoadPicture(BookId);
+            this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
+            button2.Enabled = false;
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            picturesTableAdapter.Delete((int)picturesTableAdapter.GetData().Rows[index]["ID"], (int)picturesTableAdapter.GetData().Rows[index]["BookId"], (string)picturesTableAdapter.GetData().Rows[index]["Name"]);
+            this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
         }
     }
 }
