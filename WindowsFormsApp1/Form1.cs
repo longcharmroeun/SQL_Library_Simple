@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
             for (int i = 0; i < booksTableAdapter1.GetData().Count; i++)
             {
-                comboBox1.Items.Add(booksTableAdapter1.GetData().Rows[i]["Title"]);
+                comboBox1.Items.Add(booksTableAdapter1.GetData().Rows[i][2]);
             }
         }
 
@@ -67,10 +67,10 @@ namespace WindowsFormsApp1
             int index = dataGridView1.CurrentCell.RowIndex;
             if (index < picturesTableAdapter.GetData().Rows.Count && index >= 0)
             {
-                pictureBox1.Image = ByeteToImage((byte[])picturesTableAdapter.GetData().Rows[index]["picture"]);
-                int pictureId = (int)picturesTableAdapter.GetData().Rows[index]["ID"];
-                BookTilte_Label.Text = viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["Title"].ToString();
-                AuthorName_Label.Text = $"{viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["FirstName"]} {viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0]["LastName"]}";
+                pictureBox1.Image = ByeteToImage((byte[])picturesTableAdapter.GetData().Rows[index][3]);
+                int pictureId = (int)picturesTableAdapter.GetData().Rows[index][0];
+                BookTilte_Label.Text = viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0][2].ToString();
+                AuthorName_Label.Text = $"{viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0][1]} {viewByPictureIdTableAdapter1.GetData(pictureId).Rows[0][2]}";
             }
         }
 
@@ -88,7 +88,7 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int BookId = (int)findBookIdByTitleTableAdapter1.GetData((string)comboBox1.SelectedItem).Rows[0]["ID"];
+            int BookId = (int)findBookIdByTitleTableAdapter1.GetData((string)comboBox1.SelectedItem).Rows[0][0];
             LoadPicture(BookId);
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
             button2.Enabled = false;
@@ -97,7 +97,7 @@ namespace WindowsFormsApp1
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int index = dataGridView1.CurrentCell.RowIndex;
-            picturesTableAdapter.Delete((int)picturesTableAdapter.GetData().Rows[index]["ID"], (int)picturesTableAdapter.GetData().Rows[index]["BookId"], (string)picturesTableAdapter.GetData().Rows[index]["Name"]);
+            picturesTableAdapter.Delete((int)picturesTableAdapter.GetData().Rows[index][0], (int)picturesTableAdapter.GetData().Rows[index]["BookId"], (string)picturesTableAdapter.GetData().Rows[index]["Name"]);
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
         }
     }
