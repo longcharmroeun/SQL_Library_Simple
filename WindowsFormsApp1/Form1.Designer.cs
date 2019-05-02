@@ -45,13 +45,14 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.picturesTableAdapter = new WindowsFormsApp1.LibraryDataSetTableAdapters.PicturesTableAdapter();
-            this.findBookIdByTitleTableAdapter1 = new WindowsFormsApp1.LibraryDataSetTableAdapters.FindBookIdByTitleTableAdapter();
+           
             this.booksTableAdapter1 = new WindowsFormsApp1.LibraryDataSetTableAdapters.BooksTableAdapter();
             this.viewByPictureIdTableAdapter1 = new WindowsFormsApp1.LibraryDataSetTableAdapters.ViewByPictureIdTableAdapter();
             this.label2 = new System.Windows.Forms.Label();
             this.BookTilte_Label = new System.Windows.Forms.Label();
             this.AuthorName_Label = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturesBindingSource)).BeginInit();
@@ -202,7 +203,7 @@
             // 
             // findBookIdByTitleTableAdapter1
             // 
-            this.findBookIdByTitleTableAdapter1.ClearBeforeFill = true;
+ 
             // 
             // booksTableAdapter1
             // 
@@ -252,6 +253,9 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Author Name:";
             // 
+            // getBookTitleTableAdapter1
+            // 
+           
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,7 +303,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn bookIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewImageColumn pictureDataGridViewImageColumn;
-        private LibraryDataSetTableAdapters.FindBookIdByTitleTableAdapter findBookIdByTitleTableAdapter1;
         private LibraryDataSetTableAdapters.BooksTableAdapter booksTableAdapter1;
         private LibraryDataSetTableAdapters.ViewByPictureIdTableAdapter viewByPictureIdTableAdapter1;
         private System.Windows.Forms.Label label2;

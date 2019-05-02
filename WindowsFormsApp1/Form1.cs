@@ -24,10 +24,10 @@ namespace WindowsFormsApp1
         {
             // TODO: This line of code loads data into the 'libraryDataSet.Pictures' table. You can move, or remove it, as needed.
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
-            for (int i = 0; i < booksTableAdapter1.GetData().Count; i++)
-            {
-                comboBox1.Items.Add(booksTableAdapter1.GetData().Rows[i][2]);
-            }
+            booksTableAdapter1.Fill(this.libraryDataSet.Books);
+            comboBox1.ValueMember = "Id";
+            comboBox1.DisplayMember = "Title";
+            comboBox1.DataSource = libraryDataSet.Books;
         }
 
         private void LoadPicture(int BookID)
@@ -88,8 +88,7 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int BookId = (int)findBookIdByTitleTableAdapter1.GetData((string)comboBox1.SelectedItem).Rows[0][0];
-            LoadPicture(BookId);
+            LoadPicture((int)comboBox1.SelectedValue);
             this.picturesTableAdapter.Fill(this.libraryDataSet.Pictures);
             button2.Enabled = false;
         }
